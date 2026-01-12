@@ -216,6 +216,15 @@ export default function Home() {
                                 </Link>
                             </SignedIn>
 
+                            {/* Pricing Link - Visible to all */}
+                            <Link
+                                href="/pricing"
+                                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-yellow-500/50 bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30 hover:border-yellow-500 transition"
+                            >
+                                <Zap className="w-4 h-4" />
+                                <span className="font-bold text-sm">Pricing</span>
+                            </Link>
+
                             <SignedOut>
                                 <SignInButton mode="modal">
                                     <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white font-semibold hover:shadow-lg hover:shadow-purple-500/50 transform hover:scale-105 transition">
