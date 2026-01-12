@@ -1,9 +1,10 @@
 "use client";
 
-import { Upload, Loader2, AlertCircle, CheckCircle2, Flame, Target, TrendingUp, Hash, Sparkles, RotateCcw, Lightbulb, Zap, Lock } from "lucide-react";
+import { Upload, Loader2, AlertCircle, CheckCircle2, Flame, Target, TrendingUp, Hash, Sparkles, RotateCcw, Lightbulb, Zap, Lock, History } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 interface AnalysisResult {
     score: number;
@@ -75,6 +76,31 @@ export default function Home() {
 
             const result = await response.json();
             setAnalysisResult(result);
+
+            // Save audit to database with video (fire and forget - don't block UI)
+            if (user) {
+                const saveFormData = new FormData();
+                saveFormData.append("video", selectedFile);
+                saveFormData.append("auditData", JSON.stringify({
+                    score: result.score,
+                    hook_rating: result.hook_rating,
+                    retention_rating: result.retention_rating,
+                    roast: result.roast,
+                    improvements: result.improvements,
+                    hashtags: result.hashtags,
+                    niche_detected: result.niche_detected
+                }));
+
+                fetch("/api/audits/save", {
+                    method: "POST",
+                    body: saveFormData
+                }).then(res => res.json()).then(data => {
+                    console.log("Audit saved with video:", data.videoUrl);
+                }).catch(err => {
+                    console.error("Failed to save audit:", err);
+                    // Don't show error to user - saving is optional
+                });
+            }
         } catch (err) {
             setError((err as Error).message);
         } finally {
@@ -164,9 +190,12 @@ export default function Home() {
             <header className="border-b border-white/10 backdrop-blur-sm bg-black/20">
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">
+                        <a
+                            href="/"
+                            className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent cursor-pointer hover:opacity-80 transition"
+                        >
                             🔥 ViralRoast
-                        </h1>
+                        </a>
 
                         {/* Auth Buttons */}
                         <div className="flex items-center gap-4">
@@ -176,6 +205,15 @@ export default function Home() {
                                     <Zap className="w-4 h-4" />
                                     <span className="font-bold text-sm">Credits: {credits}</span>
                                 </div>
+
+                                {/* Dashboard Link */}
+                                <Link
+                                    href="/dashboard"
+                                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-500/50 bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 hover:border-purple-500 transition"
+                                >
+                                    <History className="w-4 h-4" />
+                                    <span className="font-bold text-sm">Dashboard</span>
+                                </Link>
                             </SignedIn>
 
                             <SignedOut>

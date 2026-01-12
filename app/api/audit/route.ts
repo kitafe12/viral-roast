@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { currentUser } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
@@ -98,6 +100,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check user authentication and credits
+    const user = await currentUser();
+
+    if (!user) {
+      console.log("[Video Audit] User not authenticated");
+      return NextResponse.json(
+        { error: "You must be logged in to use this feature" },
+        { status: 401 }
+      );
+    }
+
+    const credits = Number(user.publicMetadata?.credits || 0);
+    console.log(`[Video Audit] User ${user.id} has ${credits} credits`);
+
+    if (credits < 1) {
+      console.log("[Video Audit] Insufficient credits");
+      return NextResponse.json(
+        { error: "Insufficient credits. Please purchase credits to continue." },
+        { status: 403 }
+      );
+    }
+
     // Parse form data
     const formData = await request.formData();
     const videoFile = formData.get("video") as File;
@@ -123,6 +147,20 @@ export async function POST(request: NextRequest) {
 
     // Analyze with Gemini
     const analysis = await analyzeVideoWithGemini(videoFile);
+
+    // Deduct credit after successful analysis
+    try {
+      const client = await clerkClient();
+      await client.users.updateUserMetadata(user.id, {
+        publicMetadata: {
+          credits: credits - 1
+        }
+      });
+      console.log(`[Video Audit] Credit deducted. User ${user.id} now has ${credits - 1} credits`);
+    } catch (creditError) {
+      console.error("[Video Audit] Error deducting credit:", creditError);
+      // Continue anyway - user got their analysis
+    }
 
     console.log("[Video Audit] Analysis complete, returning results");
     return NextResponse.json(analysis);
