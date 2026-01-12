@@ -7,13 +7,8 @@ import Link from "next/link";
 export default function PricingPage() {
     const { user } = useUser();
 
-    const singleAuditUrl = user?.id
-        ? `https://viralroast.lemonsqueezy.com/buy/54c0ba63-f3c6-4f89-b2ab-dc2a026e0eeb?checkout[custom][user_id]=${user.id}`
-        : "https://viralroast.lemonsqueezy.com/buy/54c0ba63-f3c6-4f89-b2ab-dc2a026e0eeb";
-
-    const proPlanUrl = user?.id
-        ? `https://viralroast.lemonsqueezy.com/buy/cf895eb4-ff6e-49ab-bd67-dc80cde7ff1d?checkout[custom][user_id]=${user.id}`
-        : "https://viralroast.lemonsqueezy.com/buy/cf895eb4-ff6e-49ab-bd67-dc80cde7ff1d";
+    const singleAuditUrl = `https://visualia346.lemonsqueezy.com/checkout/buy/7d5d1d79-6f36-4b6a-b0fe-3a87c8ce804e?checkout[custom][user_id]=${user?.id || ''}`;
+    const proPlanUrl = `https://visualia346.lemonsqueezy.com/checkout/buy/105f631b-6ff5-47d4-be1f-ed0469fe87ab?checkout[custom][user_id]=${user?.id || ''}`;
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
