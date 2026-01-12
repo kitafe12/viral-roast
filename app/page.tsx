@@ -1,6 +1,6 @@
 "use client";
 
-import { Upload, Loader2, AlertCircle, CheckCircle2, Flame, Target, TrendingUp, Hash, Sparkles, RotateCcw, Lightbulb, Zap, Lock, History } from "lucide-react";
+import { Upload, Loader2, AlertCircle, CheckCircle2, Flame, Target, TrendingUp, Hash, Sparkles, RotateCcw, Lightbulb, Zap, Lock, History, Infinity } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
@@ -27,6 +27,7 @@ export default function Home() {
     // Clerk User & Credits
     const { user, isLoaded } = useUser();
     const credits = (user?.publicMetadata?.credits as number) || 0;
+    const isPro = user?.publicMetadata?.subscription === 'pro';
 
     // Dynamic Payment URLs with User ID for webhook identification
     const singleAuditUrl = `https://visualia346.lemonsqueezy.com/checkout/buy/7d5d1d79-6f36-4b6a-b0fe-3a87c8ce804e?checkout[custom][user_id]=${user?.id || ''}`;
@@ -203,7 +204,9 @@ export default function Home() {
                             <SignedIn>
                                 <div className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${credits > 0 ? 'bg-green-500/20 border-green-500/50 text-green-400' : 'bg-gray-500/20 border-gray-500/50 text-gray-400'}`}>
                                     <Zap className="w-4 h-4" />
-                                    <span className="font-bold text-sm">Credits: {credits}</span>
+                                    <span className="font-bold text-sm">
+                                        Credits: {isPro ? <Infinity className="w-4 h-4 inline" /> : credits}
+                                    </span>
                                 </div>
 
                                 {/* Dashboard Link */}
