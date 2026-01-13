@@ -456,6 +456,18 @@ function VideoAuditResults({ result, onReset, isSignedIn, credits, singleAuditUr
                             {result.score}
                             <span className="text-4xl text-gray-500">/100</span>
                         </div>
+
+                        {/* Psychological Trigger - Dynamic Reach Loss */}
+                        {result.score < 70 && (
+                            <div className="mt-4 pt-4 border-t border-red-500/30">
+                                <p className="text-red-500 text-base font-semibold flex items-center justify-center gap-2">
+                                    📉 Estimated Reach Loss: <span className="text-red-600 font-bold">-{100 - result.score}%</span>
+                                </p>
+                                <p className="text-red-400/70 text-xs mt-1">
+                                    {result.score < 40 ? "Critical: massive audience loss" : "Significant opportunity cost"}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
