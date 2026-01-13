@@ -70,6 +70,16 @@ export default function DemoPage() {
                                     {demoResult.score}
                                     <span className="text-4xl text-gray-500">/100</span>
                                 </div>
+
+                                {/* Psychological Trigger - Reach Loss */}
+                                <div className="mt-4 pt-4 border-t border-red-500/30">
+                                    <p className="text-red-500 text-base font-semibold flex items-center justify-center gap-2">
+                                        📉 Estimated Reach Loss: <span className="text-red-600 font-bold">-85%</span>
+                                    </p>
+                                    <p className="text-red-400/70 text-xs mt-1">
+                                        Low scores = massive audience loss
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
