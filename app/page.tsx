@@ -1,6 +1,6 @@
 "use client";
 
-import { Upload, Loader2, AlertCircle, CheckCircle2, Flame, Target, TrendingUp, Hash, Sparkles, RotateCcw, Lightbulb, Zap, Lock, History, Infinity } from "lucide-react";
+import { Upload, Loader2, AlertCircle, CheckCircle2, Flame, Target, TrendingUp, Hash, Sparkles, RotateCcw, Lightbulb, Zap, Lock, History, Infinity, Eye } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
@@ -226,6 +226,15 @@ export default function Home() {
                             >
                                 <Zap className="w-4 h-4" />
                                 <span className="font-bold text-sm">Pricing</span>
+                            </Link>
+
+                            {/* Demo Link - Visible to all */}
+                            <Link
+                                href="/demo"
+                                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-blue-500/50 bg-blue-500/20 text-blue-300 hover:bg-blue-500/30 hover:border-blue-500 transition"
+                            >
+                                <Eye className="w-4 h-4" />
+                                <span className="font-bold text-sm">Demo</span>
                             </Link>
 
                             <SignedOut>
