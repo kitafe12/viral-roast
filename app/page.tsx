@@ -23,6 +23,17 @@ interface ViralIdea {
     difficulty: "Easy" | "Medium" | "Hard";
 }
 
+// Loading steps for enhanced UX during analysis
+const LOADING_STEPS = [
+    "📡 Connecting to AI Neural Network...",
+    "🎞️ Extracting video frames...",
+    "🔊 Analyzing audio spectrum & pacing...",
+    "📉 Detecting retention drop-off points...",
+    "🔥 Comparing with viral benchmarks...",
+    "🤬 Generating brutal honesty protocol...",
+    "✅ Finalizing report..."
+];
+
 export default function Home() {
     // Clerk User & Credits
     const { user, isLoaded } = useUser();
@@ -36,6 +47,7 @@ export default function Home() {
     // Video Audit State
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [loadingStep, setLoadingStep] = useState("Initializing AI...");
     const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -60,6 +72,15 @@ export default function Home() {
         setIsAnalyzing(true);
         setError(null);
         setAnalysisResult(null);
+
+        // Animated loading steps
+        let stepIndex = 0;
+        setLoadingStep(LOADING_STEPS[0]);
+
+        const loadingInterval = setInterval(() => {
+            stepIndex = (stepIndex + 1) % LOADING_STEPS.length;
+            setLoadingStep(LOADING_STEPS[stepIndex]);
+        }, 2500); // Change step every 2.5 seconds
 
         try {
             const formData = new FormData();
@@ -105,6 +126,7 @@ export default function Home() {
         } catch (err) {
             setError((err as Error).message);
         } finally {
+            clearInterval(loadingInterval); // Clean up interval
             setIsAnalyzing(false);
         }
     };
@@ -292,6 +314,7 @@ export default function Home() {
                                 <VideoUploadForm
                                     selectedFile={selectedFile}
                                     isAnalyzing={isAnalyzing}
+                                    loadingStep={loadingStep}
                                     error={error}
                                     onFileChange={handleFileChange}
                                     onAnalyze={handleAnalyze}
@@ -327,7 +350,7 @@ export default function Home() {
 }
 
 // Component: Video Upload Form
-function VideoUploadForm({ selectedFile, isAnalyzing, error, onFileChange, onAnalyze }: any) {
+function VideoUploadForm({ selectedFile, isAnalyzing, loadingStep, error, onFileChange, onAnalyze }: any) {
     return (
         <div className="text-center">
             <h2 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
@@ -361,9 +384,16 @@ function VideoUploadForm({ selectedFile, isAnalyzing, error, onFileChange, onAna
                                 </h3>
                                 <p className="text-gray-400">
                                     {isAnalyzing
-                                        ? "Extracting frames and analyzing content..."
+                                        ? "AI is analyzing your content..."
                                         : "Drop your TikTok or Short here to get roasted"}
                                 </p>
+
+                                {/* Loading Step - Animated Technical Messages */}
+                                {isAnalyzing && (
+                                    <p className="text-purple-400 text-sm mt-3 animate-pulse font-medium">
+                                        {loadingStep}
+                                    </p>
+                                )}
                             </div>
 
                             {selectedFile && !isAnalyzing && (
