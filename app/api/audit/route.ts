@@ -32,16 +32,23 @@ Use American slang/colloquialisms appropriate for TikTok (e.g., 'Bro, this hook 
 
 Analyze this short-form video (TikTok/Shorts).
 
+CRITICAL RULE - TIMESTAMPS REQUIRED:
+You MUST use specific timestamps to justify your critiques.
+Don't just say "The intro is slow" - Say: "At [0:03], you paused for too long."
+Don't just say "The transition was jarring" - Say: "At [0:12], the cut was abrupt and killed momentum."
+Every major critique in your roast MUST have a timestamp in [MM:SS] format (e.g., [0:05], [0:14], [0:23]).
+Users need precise timestamps to edit their timeline.
+
 Respond ONLY with a JSON object in this EXACT format (no markdown, no backticks):
 {
   "score": 75,
   "hook_rating": "Excellent",
   "retention_rating": "Average",
-  "roast": "This video starts strong but loses momentum after 3 seconds. We're already bored, bro...",
+  "roast": "At [0:00], your first frame is literally a black screen - that's not a hook, that's a blackout. By [0:03], you're still saying 'Hello guys' while the algorithm already swiped. At [0:14], you spent 14 seconds before showing the product. Bro, we're already gone...",
   "improvements": [
-    "Speed up the editing: 0.5s max per shot",
-    "Add animated text to guide the eye",
-    "Your music is too basic, find a trending sound"
+    "Cut everything before [0:12] - start with the finished result",
+    "At [0:05], add a text overlay to hook viewers immediately",
+    "Remove the pause at [0:08] - speed up editing to 0.5s max per shot"
   ],
   "hashtags": ["#fitness", "#motivation", "#gymtok", "#transformation", "#gains"],
   "niche_detected": "Fitness"
@@ -52,8 +59,10 @@ Criteria:
 - Retention: Editing, pacing, suspense?
 - Virality: Share potential, emotion?
 
-The "roast" must be funny and brutally honest. Ratings are: "Weak", "Average" or "Excellent".
-Remember: ENGLISH ONLY. Use US market language and TikTok slang.`;
+The "roast" must be funny, brutally honest, and include SPECIFIC TIMESTAMPS.
+The "improvements" should reference timestamps where changes should be made.
+Ratings are: "Weak", "Average" or "Excellent".
+Remember: ENGLISH ONLY. Use US market language and TikTok slang. TIMESTAMPS ARE MANDATORY.`;
 
     const result = await model.generateContent([
       {
