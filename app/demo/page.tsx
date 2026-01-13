@@ -1,10 +1,10 @@
 "use client";
 
-import { TrendingUp, Flame, Lightbulb, Hash, Target, ArrowLeft, Crown } from "lucide-react";
+import { TrendingUp, Flame, Lightbulb, Hash, Target, CheckCircle2, Sparkles, Lock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function DemoPage() {
-    // Hardcoded demo result
+    // Hardcoded demo result - exactly like real analysis
     const demoResult = {
         score: 42,
         hook_rating: "Weak",
@@ -13,14 +13,13 @@ export default function DemoPage() {
         improvements: [
             "Cut the first 12 seconds entirely - start with the finished result",
             "Show the product/result in frame 1 (first 0.5 seconds)",
-            "Add dynamic captions to keep retention high",
-            "Use a trending sound instead of silence",
-            "Add visual text overlays for better engagement"
+            "Add dynamic captions to keep retention high"
         ],
         hashtags: ["#viral", "#contentcreator", "#tiktokgrowth", "#videotips", "#socialmedia"],
         niche_detected: "Content Creation"
     };
 
+    // Helper functions matching main page
     const getScoreColor = (score: number) => {
         if (score >= 70) return "text-green-400";
         if (score >= 40) return "text-yellow-400";
@@ -28,180 +27,165 @@ export default function DemoPage() {
     };
 
     const getScoreBgColor = (score: number) => {
-        if (score >= 70) return "bg-green-500/20 border-green-500/50";
-        if (score >= 40) return "bg-yellow-500/20 border-yellow-500/50";
-        return "bg-red-500/20 border-red-500/50";
+        if (score >= 70) return "from-green-900/30 to-green-800/20";
+        if (score >= 40) return "from-yellow-900/30 to-orange-800/20";
+        return "from-red-900/30 to-orange-800/20";
+    };
+
+    const getRatingColor = (rating: string) => {
+        if (rating === "Excellent") return "bg-green-500/20 border-green-500/50 text-green-400";
+        if (rating.includes("Average") || rating.includes("Moyen")) return "bg-orange-500/20 border-orange-500/50 text-orange-400";
+        return "bg-red-500/20 border-red-500/50 text-red-400";
+    };
+
+    const getRatingProgress = (rating: string) => {
+        if (rating === "Excellent") return 90;
+        if (rating.includes("Average") || rating.includes("Moyen")) return 50;
+        return 25;
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
-            {/* Header */}
-            <header className="border-b border-white/10 backdrop-blur-sm bg-black/20">
-                <div className="container mx-auto px-6 py-4">
-                    <div className="flex items-center justify-between">
-                        <Link href="/" className="flex items-center gap-2 text-white hover:text-gray-300 transition">
-                            <ArrowLeft className="w-5 h-5" />
-                            <span>Back to Home</span>
-                        </Link>
-                        <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">
-                            🔥 ViralRoast Demo
-                        </h1>
-                        <div></div>
-                    </div>
-                </div>
-            </header>
-
-            <div className="container mx-auto px-6 py-12">
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 py-12 px-6">
+            <div className="container mx-auto max-w-6xl">
                 {/* Demo Badge */}
                 <div className="text-center mb-8">
                     <div className="inline-block px-6 py-3 bg-purple-500/20 border-2 border-purple-500/50 rounded-full mb-4">
-                        <p className="text-purple-300 font-bold">📺 DEMO REPORT - See What You Get!</p>
+                        <p className="text-purple-300 font-bold">📺 DEMO REPORT  - This is what you'll get!</p>
                     </div>
-                    <h2 className="text-4xl font-bold text-white mb-2">
-                        Your Video Analysis Report
-                    </h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto">
-                        This is an example of what our AI generates for every video. Real analysis uses advanced AI to roast your content and give actionable tips.
-                    </p>
                 </div>
 
-                {/* Results Container */}
-                <div className="max-w-4xl mx-auto">
-                    {/* Score Section */}
-                    <div className="bg-slate-800/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-6">
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Target className="w-7 h-7 text-purple-400" />
-                                Virality Score
-                            </h3>
-                            <div className={`flex items-center gap-3 px-6 py-3 rounded-xl border ${getScoreBgColor(demoResult.score)}`}>
-                                <TrendingUp className="w-6 h-6" />
-                                <span className={`text-4xl font-bold ${getScoreColor(demoResult.score)}`}>
-                                    {demoResult.score}/100
-                                </span>
-                            </div>
+                {/* Results - EXACT COPY from main page */}
+                <div className="space-y-8">
+                    {/* Header + Score */}
+                    <div className="text-center space-y-6">
+                        <div className="flex items-center justify-center gap-3">
+                            <CheckCircle2 className="w-8 h-8 text-green-500" />
+                            <h2 className="text-3xl font-bold text-white">ANALYSIS COMPLETE</h2>
                         </div>
 
-                        {/* Ratings */}
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                                <p className="text-blue-300 text-sm mb-1">Hook Rating</p>
-                                <p className="text-white text-xl font-bold">{demoResult.hook_rating}</p>
+                        <div className={`inline-block bg-gradient-to-br ${getScoreBgColor(demoResult.score)} backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl`}>
+                            <div className="text-center">
+                                <p className="text-gray-400 text-sm uppercase tracking-wide mb-2">Overall Score</p>
+                                <div className={`text-7xl font-extrabold ${getScoreColor(demoResult.score)}`}>
+                                    {demoResult.score}
+                                    <span className="text-4xl text-gray-500">/100</span>
+                                </div>
                             </div>
-                            <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
-                                <p className="text-green-300 text-sm mb-1">Retention Rating</p>
-                                <p className="text-white text-xl font-bold">{demoResult.retention_rating}</p>
-                            </div>
-                        </div>
-
-                        {/* Niche Badge */}
-                        <div className="mt-4">
-                            <span className="inline-block px-4 py-2 bg-purple-500/20 border border-purple-500/50 rounded-full text-purple-300 font-semibold">
-                                Niche: {demoResult.niche_detected}
-                            </span>
                         </div>
                     </div>
 
-                    {/* Roast Section */}
-                    <div className="bg-slate-800/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-6">
-                        <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
-                            <Flame className="w-7 h-7 text-orange-500" />
-                            The Roast 🔥
-                        </h3>
-                        <p className="text-gray-300 text-lg leading-relaxed">
-                            {demoResult.roast}
-                        </p>
-                    </div>
+                    {/* THE ROAST */}
+                    <div className="relative group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
 
-                    {/* Improvements Section - Locked for Demo */}
-                    <div className="bg-slate-800/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-6 relative overflow-hidden">
-                        <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
-                            <Lightbulb className="w-7 h-7 text-yellow-400" />
-                            Pro Improvements
-                        </h3>
-
-                        {/* Blurred Preview */}
-                        <div className="blur-sm pointer-events-none">
-                            <ul className="space-y-3">
-                                {demoResult.improvements.map((improvement, idx) => (
-                                    <li key={idx} className="flex items-start gap-3">
-                                        <span className="text-yellow-500 text-xl mt-1">•</span>
-                                        <span className="text-gray-300 text-lg">{improvement}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Upgrade Overlay */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 backdrop-blur-sm">
-                            <Crown className="w-12 h-12 text-yellow-400 mb-3" />
-                            <p className="text-white text-xl font-bold mb-2">Unlock Pro Features</p>
-                            <p className="text-gray-400 mb-4 text-center max-w-md">
-                                Get personalized improvements, hashtag recommendations, and unlimited audits
+                        <div className="relative bg-gradient-to-br from-red-950/50 to-orange-950/30 backdrop-blur-xl border border-red-500/30 rounded-2xl p-8 shadow-2xl">
+                            <div className="flex items-center gap-3 mb-4">
+                                <Flame className="w-8 h-8 text-orange-500" />
+                                <h3 className="text-2xl font-bold text-white">THE ROAST</h3>
+                            </div>
+                            <p className="text-xl text-gray-200 leading-relaxed font-medium">
+                                {demoResult.roast}
                             </p>
-                            <Link
-                                href="/pricing"
-                                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl text-white font-bold hover:shadow-xl hover:shadow-purple-500/50 transform hover:scale-105 transition"
-                            >
-                                Upgrade to Pro - $9.99/mo
-                            </Link>
                         </div>
                     </div>
 
-                    {/* Hashtags Section - Locked for Demo */}
-                    <div className="bg-slate-800/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-6 relative overflow-hidden">
-                        <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
-                            <Hash className="w-7 h-7 text-pink-400" />
-                            Recommended Hashtags
-                        </h3>
+                    {/* Ratings + Action Plan */}
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
+                            <div className="flex items-center gap-2 mb-6">
+                                <Target className="w-6 h-6 text-purple-500" />
+                                <h3 className="text-xl font-bold text-white">Performance Ratings</h3>
+                            </div>
 
-                        {/* Blurred Preview */}
-                        <div className="blur-sm pointer-events-none">
-                            <div className="flex flex-wrap gap-2">
-                                {demoResult.hashtags.map((tag, idx) => (
-                                    <span
-                                        key={idx}
-                                        className="px-4 py-2 bg-purple-500/20 border border-purple-500/50 rounded-full text-purple-300 font-semibold"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
+                            <div className="space-y-6">
+                                <div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="text-gray-300 font-medium">Hook Rating</span>
+                                        <span className={`px-3 py-1 rounded-full text-sm font-bold border ${getRatingColor(demoResult.hook_rating)}`}>
+                                            {demoResult.hook_rating}
+                                        </span>
+                                    </div>
+                                    <div className="w-full bg-gray-700/50 rounded-full h-3 overflow-hidden">
+                                        <div
+                                            className={`h-full rounded-full transition-all duration-1000 bg-red-500`}
+                                            style={{ width: `${getRatingProgress(demoResult.hook_rating)}%` }}
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="text-gray-300 font-medium">Retention Rating</span>
+                                        <span className={`px-3 py-1 rounded-full text-sm font-bold border ${getRatingColor(demoResult.retention_rating)}`}>
+                                            {demoResult.retention_rating}
+                                        </span>
+                                    </div>
+                                    <div className="w-full bg-gray-700/50 rounded-full h-3 overflow-hidden">
+                                        <div
+                                            className={`h-full rounded-full transition-all duration-1000 bg-orange-500`}
+                                            style={{ width: `${getRatingProgress(demoResult.retention_rating)}%` }}
+                                        ></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Upgrade Overlay */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 backdrop-blur-sm">
-                            <Crown className="w-12 h-12 text-yellow-400 mb-3" />
-                            <p className="text-white text-xl font-bold mb-4">Pro Feature</p>
-                            <Link
-                                href="/pricing"
-                                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl text-white font-bold hover:shadow-xl hover:shadow-purple-500/50 transform hover:scale-105 transition"
-                            >
-                                See Pricing
-                            </Link>
+                        <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
+                            <div className="flex items-center gap-2 mb-6">
+                                <Sparkles className="w-6 h-6 text-yellow-500" />
+                                <h3 className="text-xl font-bold text-white">Action Plan</h3>
+                            </div>
+
+                            <div className="space-y-3">
+                                {demoResult.improvements.map((improvement: string, index: number) => (
+                                    <div key={index} className="relative flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition">
+                                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
+                                            {index + 1}
+                                        </div>
+                                        <p className="text-gray-300 text-sm leading-relaxed">{improvement}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                    {/* CTA Section */}
-                    <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 backdrop-blur-sm border-2 border-purple-500 rounded-2xl p-8 text-center">
-                        <h3 className="text-3xl font-bold text-white mb-4">
-                            Ready to Roast Your Videos? 🔥
-                        </h3>
-                        <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
-                            Get instant AI-powered feedback on YOUR videos. Improve hooks, boost retention, and go viral faster.
-                        </p>
-                        <div className="flex gap-4 justify-center flex-wrap">
+                    {/* Virality Insights - Same as main page */}
+                    <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
+                        <div className="flex items-center gap-2 mb-6">
+                            <TrendingUp className="w-6 h-6 text-green-500" />
+                            <h3 className="text-xl font-bold text-white">Virality Insights</h3>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                                <p className="text-xs text-gray-400 mb-1">Niche</p>
+                                <p className="text-white font-bold">{demoResult.niche_detected}</p>
+                            </div>
+                            <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                                <p className="text-xs text-gray-400 mb-1">Recommended Hashtags</p>
+                                <div className="flex gap-1 flex-wrap">
+                                    {demoResult.hashtags.slice(0, 2).map((tag, idx) => (
+                                        <span key={idx} className="text-purple-400 text-xs">{tag}</span>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+                                <p className="text-xs text-gray-400 mb-1">Total Insights</p>
+                                <p className="text-white font-bold">{demoResult.improvements.length} Tips</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Big CTA Button - Fixed at bottom */}
+                    <div className="sticky bottom-6 z-50">
+                        <div className="bg-gradient-to-r from-orange-600 to-pink-600 rounded-2xl p-1">
                             <Link
                                 href="/"
-                                className="px-8 py-4 bg-gradient-to-r from-orange-600 to-pink-600 rounded-xl text-white font-bold text-lg hover:shadow-xl hover:shadow-pink-500/50 transform hover:scale-105 transition"
+                                className="flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-pink-500 rounded-xl px-8 py-6 hover:from-orange-600 hover:to-pink-600 transition group"
                             >
-                                Try Free Analysis
-                            </Link>
-                            <Link
-                                href="/pricing"
-                                className="px-8 py-4 bg-white/10 border-2 border-white/20 rounded-xl text-white font-bold text-lg hover:bg-white/20 transform hover:scale-105 transition"
-                            >
-                                View Pricing
+                                <span className="text-white text-2xl font-bold">Audit MY Video Now</span>
+                                <ArrowRight className="w-8 h-8 text-white group-hover:translate-x-2 transition" />
+                                <span className="text-2xl">🚀</span>
                             </Link>
                         </div>
                     </div>

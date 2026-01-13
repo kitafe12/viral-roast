@@ -413,6 +413,19 @@ function VideoUploadForm({ selectedFile, isAnalyzing, error, onFileChange, onAna
                 </div>
             )}
 
+            {/* Demo Link */}
+            <div className="mt-6 text-center">
+                <Link
+                    href="/demo"
+                    className="inline-flex items-center gap-2 text-gray-400 hover:text-purple-400 transition group"
+                >
+                    <Eye className="w-4 h-4 group-hover:scale-110 transition" />
+                    <span className="text-sm font-medium underline decoration-dotted">
+                        Not sure? See a sample report 👀
+                    </span>
+                </Link>
+            </div>
+
             <p className="mt-8 text-sm text-gray-500">
                 Powered by AI • TikTok & YouTube Shorts optimized
             </p>
