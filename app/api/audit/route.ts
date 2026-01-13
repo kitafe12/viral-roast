@@ -39,12 +39,20 @@ Don't just say "The transition was jarring" - Say: "At [0:12], the cut was abrup
 Every major critique in your roast MUST have a timestamp in [MM:SS] format (e.g., [0:05], [0:14], [0:23]).
 Users need precise timestamps to edit their timeline.
 
+ACTION - REWRITE THE HOOK:
+Analyze the first 10-15 seconds of the video and rewrite it to be PUNCHY and VIRAL.
+Remove ALL filler words (um, like, so, you know).
+Add a strong hook that grabs attention immediately.
+Make it TikTok-ready: short sentences, high energy, immediate value.
+Return this rewritten script in the "improved_hook" field.
+
 Respond ONLY with a JSON object in this EXACT format (no markdown, no backticks):
 {
   "score": 75,
   "hook_rating": "Excellent",
   "retention_rating": "Average",
   "roast": "At [0:00], your first frame is literally a black screen - that's not a hook, that's a blackout. By [0:03], you're still saying 'Hello guys' while the algorithm already swiped. At [0:14], you spent 14 seconds before showing the product. Bro, we're already gone...",
+  "improved_hook": "STOP! I lost 30 pounds in 60 days. Here's the ONE trick doctors won't tell you. [Show transformation NOW]",
   "improvements": [
     "Cut everything before [0:12] - start with the finished result",
     "At [0:05], add a text overlay to hook viewers immediately",
@@ -60,6 +68,7 @@ Criteria:
 - Virality: Share potential, emotion?
 
 The "roast" must be funny, brutally honest, and include SPECIFIC TIMESTAMPS.
+The "improved_hook" should be a complete rewrite of the opening 10-15 seconds - make it VIRAL-READY.
 The "improvements" should reference timestamps where changes should be made.
 Ratings are: "Weak", "Average" or "Excellent".
 Remember: ENGLISH ONLY. Use US market language and TikTok slang. TIMESTAMPS ARE MANDATORY.`;

@@ -11,6 +11,7 @@ interface AnalysisResult {
     hook_rating: "Faible" | "Moyen" | "Excellent";
     retention_rating: "Faible" | "Moyen" | "Excellent";
     roast: string;
+    improved_hook: string;
     improvements: string[];
     hashtags: string[];
     niche_detected: string;
@@ -516,6 +517,42 @@ function VideoAuditResults({ result, onReset, isSignedIn, credits, singleAuditUr
                     </p>
                 </div>
             </div>
+
+            {/* AI SUGGESTED HOOK */}
+            {result.improved_hook && (
+                <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
+
+                    <div className="relative bg-gradient-to-br from-indigo-950/50 to-purple-950/30 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-8 shadow-2xl">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <Sparkles className="w-8 h-8 text-indigo-400" />
+                                <h3 className="text-2xl font-bold text-white">✨ AI Suggested Hook</h3>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText(result.improved_hook);
+                                    alert('Hook copied to clipboard!');
+                                }}
+                                className="px-4 py-2 bg-indigo-500/20 border border-indigo-500/50 rounded-lg text-indigo-300 hover:bg-indigo-500/30 transition flex items-center gap-2"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                                Copy
+                            </button>
+                        </div>
+                        <div className="bg-white/5 border border-indigo-500/20 rounded-lg p-6">
+                            <p className="text-lg text-gray-200 leading-relaxed font-medium">
+                                {result.improved_hook}
+                            </p>
+                        </div>
+                        <p className="text-sm text-indigo-300/70 mt-3">
+                            💡 This is how the AI would rewrite your first 10-15 seconds for maximum engagement
+                        </p>
+                    </div>
+                </div>
+            )}
 
             {/* Ratings + Action Plan */}
             <div className="grid md:grid-cols-2 gap-8">
